@@ -4702,7 +4702,6 @@ async function qBitTorrentPOST(postData) {
         }),
         onload: function(response) {
             // The login POST has been sent and returned, check the response before proceeding...
-            console.log(response)
 
             // <v5.2 || v5.2+
             if ( response.responseText == 'Ok.' || response.statusText == 'OK' ) { // v5.2+
