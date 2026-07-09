@@ -4,7 +4,7 @@
 
 // @name        qui - quiCKIE
 // @author      WirlyWirly + Contributors 🫶
-// @version     1.48
+// @version     1.49
 // @homepage    https://github.com/WirlyWirly/quiCKIE
 // @description A UserScript to quickly send torrents from a tracker to a client, with customizable per-site settings and presets 🐰
 //              Orignally written for qui, later extended to support more torrent clients
@@ -4702,8 +4702,10 @@ async function qBitTorrentPOST(postData) {
         }),
         onload: function(response) {
             // The login POST has been sent and returned, check the response before proceeding...
+            console.log(response)
 
-            if ( response.responseText == 'Ok.' ) {
+            // <v5.2 || v5.2+
+            if ( response.responseText == 'Ok.' || response.statusText == 'OK' ) { // v5.2+
                 // Succesfully logged into qBitTorrent, ready to send another POST to add a new torrent
 
                 replaceEmojis(bunnyButton, '🕓')
@@ -4715,7 +4717,8 @@ async function qBitTorrentPOST(postData) {
                     onload: function(response) {
                         // ----- Actions to take after the torrent POST has completed -----
 
-                        if (response.status == 200) {
+                        // <v5.2 || v5.2+
+                        if ( response.status == 200 || response.status == 202 ) {
                             // Success: The torrent has been added to qBitTorrent
 
                             replaceEmojis(bunnyButton, '✔️')
@@ -4756,7 +4759,7 @@ async function qBitTorrentPOST(postData) {
 
                 window.alert(`❌ quiCKIE ❌\n\nqBitTorrent was reached, but the login attempt failed\n\nℹ️ Check your username\\password for typos\n\nStatus Code: ${response.status}\n\nqBitTorrentURL: ${SETTINGS.torrentClient.qBitTorrentURL}\n\nThe full response has been printed in the console`)
 
-            }
+            } 
 
         },
         onerror: function(response) {
