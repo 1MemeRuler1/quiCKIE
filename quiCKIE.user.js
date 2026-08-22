@@ -4,7 +4,7 @@
 
 // @name        qui - quiCKIE
 // @author      WirlyWirly + Contributors 🫶
-// @version     1.49
+// @version     1.49.1
 // @homepage    https://github.com/WirlyWirly/quiCKIE
 // @description A UserScript to quickly send torrents from a tracker to a client, with customizable per-site settings and presets 🐰
 //              Orignally written for qui, later extended to support more torrent clients
@@ -166,10 +166,6 @@
 // @match   https://materialize.is/torrents.php*
 
 // @match   https://mircrew-releases.org/*
-
-// @match   https://www.morethantv.me/collage/*
-// @match   https://www.morethantv.me/top10.php*
-// @match   https://www.morethantv.me/torrents/browse*
 
 // @match   https://www.myanonamouse.net/
 // @match   https://www.myanonamouse.net/stats/top10Tor.php*
@@ -485,12 +481,6 @@ const settingsPanelTrackers = [
         trackerName: 'MirCrew', // @steventrux
         homepageURL: 'https://mircrew-releases.org',
         primaryDomain: 'mircrew-releases',
-    },
-
-    {
-        trackerName: 'MoreThanTV', // @holy-elbow
-        homepageURL: 'https://www.morethantv.me',
-        primaryDomain: 'morethantv',
     },
 
     {
@@ -1371,17 +1361,6 @@ if ( primaryDomain == 'animebytes' ) {
         downloadElementsSelector: 'a[href^="magnet:?xt=urn:btih:"]',
         bunnyButtonFontSize: '240%',
         elementsSeparator: ' ',
-    }
-
-    quickieTrackerHandler(trackerHandlingOptions)
-
-} else if ( primaryDomain == 'morethantv' ) {
-    // ----------------------------------- MoreThanTV -----------------------------------
-    // Browse | Collages | Details | Top10
-
-    let trackerHandlingOptions = {
-        downloadElementsSelector: 'a[href^="/torrents.php?action=download&id="]',
-        elementsSeparator: '||',
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
