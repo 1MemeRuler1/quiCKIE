@@ -4,7 +4,7 @@
 
 // @name        qui - quiCKIE
 // @author      WirlyWirly + Contributors 🫶
-// @version     1.49.1
+// @version     1.49.2
 // @homepage    https://github.com/WirlyWirly/quiCKIE
 // @description A UserScript to quickly send torrents from a tracker to a client, with customizable per-site settings and presets 🐰
 //              Orignally written for qui, later extended to support more torrent clients
@@ -169,7 +169,7 @@
 
 // @match   https://www.myanonamouse.net/
 // @match   https://www.myanonamouse.net/stats/top10Tor.php*
-// @match   https://www.myanonamouse.net/t/*
+// @include /^https://www.myanonamouse.net/t/\d+.*/
 // @match   https://www.myanonamouse.net/tor/browse.php*
 // @match   https://www.myanonamouse.net/tor/search.php*
 
@@ -544,7 +544,7 @@ const settingsPanelTrackers = [
     },
 
     {
-        trackerName: 'RetroToonWorld',
+        trackerName: 'RetroToonWorld', // @flows
         homepageURL: 'https://retrotoon.world',
         primaryDomain: 'retrotoon',
     },
@@ -5187,11 +5187,13 @@ function scanForThirdPartyTorrentURLS(delay) {
 
                 // Determine the current separator used by an existing bunnyButton
                 let separatorNode
-                SETTINGS.bunnyButtonPlacement == 'After' ? separatorNode = existingBB.previousSibling : separatorNode = existingBB.nextSibling
+                if ( existingBB != null) {
+                    SETTINGS.bunnyButtonPlacement == 'After' ? separatorNode = existingBB.previousSibling : separatorNode = existingBB.nextSibling
+                } 
 
                 let separatorText
                 if ( separatorNode == null ) {
-                    separatorText == ' '
+                    separatorText = ' '
                 } else {
                     separatorNode.nodeType != 3 ? separatorText = ' ' : separatorText = separatorNode.textContent
                 }
@@ -5203,7 +5205,7 @@ function scanForThirdPartyTorrentURLS(delay) {
                 let bunnyButton = createBunnyButton({torrentURL: downloadElement.dataset.quickie_torrenturl, buttonText: bunnyButtonText, torrentSettings: torrentSettings})
 
                 // Apply the CSS styles used by the existingBB
-                bunnyButton.style = existingBB.style.cssText
+                existingBB != null ? bunnyButton.style = existingBB.style.cssText : null
                 bunnyButton.classList.add('quickie_thirdParty')
 
                 // Append the bunnyButton relative to the thirdParty element
