@@ -186,6 +186,11 @@
 // @match   https://oldtoons.world/playlists/*
 // @match   https://oldtoons.world/torrents*
 
+// @match   https://onlyencodes.cc/
+// @match   https://onlyencodes.cc/*/bookmarks*
+// @match   https://onlyencodes.cc/playlists/*
+// @match   https://onlyencodes.cc/torrents*
+
 // @match   https://orpheus.network/artist.php?id=*
 // @match   https://orpheus.network/bookmarks.php*
 // @match   https://orpheus.network/collages.php?id=*
@@ -222,6 +227,11 @@
 // @match   https://secret-cinema.pw/collages.php?id=*
 // @match   https://secret-cinema.pw/top10.php*
 // @match   https://secret-cinema.pw/torrents.php*
+
+// @match   https://seedpool.org/
+// @match   https://seedpool.org/*/bookmarks*
+// @match   https://seedpool.org/playlists/*
+// @match   https://seedpool.org/torrents*
 
 // @match   https://sportscult.org/index.php?page=torrents*
 // @match   https://sportscult.org/index.php?page=torrent-details*
@@ -508,6 +518,12 @@ const settingsPanelTrackers = [
     },
 
     {
+        trackerName: 'OnlyEncodes', // @MemeRuler
+        homepageURL: 'https://onlyencodes.cc',
+        primaryDomain: 'onlyencodes',
+    },
+
+    {
         trackerName: 'Orpheus',
         homepageURL: 'https://orpheus.network',
         primaryDomain: 'orpheus',
@@ -553,6 +569,12 @@ const settingsPanelTrackers = [
         trackerName: 'Secret-Cinema', // @tartuffe
         homepageURL: 'https://secret-cinema.pw',
         primaryDomain: 'secret-cinema',
+    },
+
+    {
+        trackerName: 'SeedPool', // @MemeRuler
+        homepageURL: 'https://seedpool.org',
+        primaryDomain: 'seedpool',
     },
 
     {
@@ -1494,6 +1516,12 @@ if ( primaryDomain == 'animebytes' ) {
 
     unit3dTrackerHandler('a[href^="https://oldtoons.world/torrents/download/"]')
 
+} else if ( primaryDomain == 'onlyencodes' ) {
+    // ----------------------------------- OnlyEncodes -----------------------------------
+    // Bookmarks | Browse | Details | Playlists
+
+    unit3dTrackerHandler('a[href*="/download"]')
+
 } else if ( primaryDomain == 'orpheus' ) {
     // ----------------------------------- Orpheus -----------------------------------
     // Album | Artist | Browse | Collages
@@ -1634,6 +1662,12 @@ if ( primaryDomain == 'animebytes' ) {
     }
 
     quickieTrackerHandler(trackerHandlingOptions)
+
+} else if ( primaryDomain == 'seedpool' ) {
+    // ----------------------------------- SeedPool -----------------------------------
+    // Bookmarks | Browse | Details | Playlists
+
+    unit3dTrackerHandler('a[href*="/download"]')
 
 } else if ( primaryDomain == 'sportscult' ) {
     // ----------------------------------- SportsCult -----------------------------------
